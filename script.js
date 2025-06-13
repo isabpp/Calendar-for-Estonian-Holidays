@@ -31,8 +31,10 @@ function renderHolidays(data) {
         holidayContainer.className = 'holiday_container';
         const innerContainer = document.createElement('div');
         innerContainer.className = 'inner_container';
+        innerContainer.id = 'inner_container';
         const capsule1 = document.createElement('div');
         capsule1.className = 'capsule1';
+        capsule1.id = 'capsule1';
         const capsule2 = document.createElement('div');
         capsule2.className = 'capsule2';
         
@@ -48,5 +50,30 @@ function renderHolidays(data) {
         holidayContainer.appendChild(innerContainer);
         contentContainer.appendChild(holidayContainer);
         console.log(data[i].localName);
+        console.log(capsule1.id);
     }
+}
+
+function switchThemes() {
+    var button = document.getElementById('switch');
+    var body = document.body;
+    var elements = document.querySelectorAll('.holiday_container, .inner_container, .capsule1, .title-container');
+
+    body.classList.toggle('darkmode');
+
+    if (button.innerHTML === 'Toggle dark mode') {
+        button.innerHTML = 'Toggle light mode';
+        body.classList.add('dark');
+        elements.forEach(element => {
+            element.classList.add('dark');
+        });
+
+    } else {
+        button.innerHTML = 'Toggle dark mode';
+        body.classList.remove('dark');
+        elements.forEach(element => {
+            element.classList.remove('dark');
+        });
+    }
+
 }
