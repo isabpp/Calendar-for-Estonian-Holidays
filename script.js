@@ -23,9 +23,28 @@ async function  fetchData(year) {
     }
 }
 
+function holidayColorCoding(currentDate, holidayDate) {
+    let timeDifference = holidayDate - currentDate;
+    let daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24)); //converting from ms to days 
+
+    if (daysDifference < 0) { //marking past holidays with gray
+        return 'gray'; 
+    } else if (daysDifference <= 14) { //upcoming holidays marked with green
+        return '#28b546';
+    } else if (daysDifference <= 30) { //holidays less than or 1 months away marked with yellow
+        return 'yellow';
+    } else if (daysDifference <= 60) { //holidays less than or 2 months away marked with orange
+        return 'orange';
+    } else { //the rest is marked with red, signalling that it's far away
+        return '#db5942';
+    }
+}
+
 function renderHolidays(data) {
     const contentContainer = document.getElementById('content');
     contentContainer.innerHTML = ''; //to clear previous content when selecting a year 
+
+    const currentDate = new Date();
 
     for (let i = 0; i < data.length; i++) {
         const holidayContainer = document.createElement('div');
@@ -45,6 +64,9 @@ function renderHolidays(data) {
 
         capsule1.innerHTML = '<b>' + days[date.getDay()] + '</b> <br> <p>' + months[date.getMonth()].slice(0, 3) + ' ' + date.getDate() + ', ' + date.getFullYear() + '</p>';
         capsule2.innerHTML = '<b>' + data[i].localName + '</b> <br> <p>' + data[i].name + '</p>';
+
+        const outlineColor = holidayColorCoding(currentDate, date);
+        capsule1.style.outline = '2px solid ' + outlineColor;
 
         innerContainer.appendChild(capsule1);
         innerContainer.appendChild(capsule2);
