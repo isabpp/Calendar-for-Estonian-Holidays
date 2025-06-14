@@ -57,7 +57,7 @@ body {
 
 .search-container {
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     align-items: center;
 }
 
@@ -67,6 +67,19 @@ body {
     width: 250px;
     padding: 10px;
     border: none;
+    font-family: Verdana, Tahoma, sans-serif;
+    color: rgb(67, 22, 109);
+    filter: opacity(60%);
+}
+
+.dropdown {
+    padding: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    background-color: rgb(214, 200, 228);
+    border: none;
+    filter: opacity(60%);
 }
 
 
