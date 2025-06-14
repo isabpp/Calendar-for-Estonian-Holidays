@@ -55,6 +55,21 @@ body {
     margin-bottom: 20px;
 }
 
+.search-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.searchbar {
+    background-color: rgb(243, 231, 253);
+    border-radius: 10px;
+    width: 250px;
+    padding: 10px;
+    border: none;
+}
+
+
 .holiday_container {
     margin-bottom: 20px;
 }

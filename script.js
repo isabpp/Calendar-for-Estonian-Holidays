@@ -25,6 +25,7 @@ async function  fetchData(year) {
 
 function renderHolidays(data) {
     const contentContainer = document.getElementById('content');
+    contentContainer.innerHTML = ''; //to clear previous content when selecting a year 
 
     for (let i = 0; i < data.length; i++) {
         const holidayContainer = document.createElement('div');
@@ -77,3 +78,18 @@ function switchThemes() {
     }
 
 }
+
+function searchHoliday() {
+    const searchValue = document.getElementById('searchbar').value.toLowerCase();
+    if (holidayData.length === 0) return; //to make sure there is data before moving on 
+    const filteredHoliday = holidayData.filter(holiday => { 
+        return holiday.name.toLowerCase().includes(searchValue) || holiday.localName.toLowerCase().includes(searchValue);
+    });
+
+    console.log('Filtered Holidays:', filteredHoliday);
+
+    renderHolidays(filteredHoliday);
+    
+}
+
+document.getElementById('searchbar').addEventListener('input', searchHoliday);
