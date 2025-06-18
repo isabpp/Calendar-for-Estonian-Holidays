@@ -40,7 +40,7 @@ function holidayColorCoding(currentDate, holidayDate) {
         return '#28b546';
     } else if (daysDifference <= 30) { //holidays less than or 1 months away marked with yellow
         return 'yellow';
-    } else if (daysDifference <= 60) { //holidays less than or 2 months away marked with orange
+    } else if (daysDifference <= 60 && daysDifference > 30) { //holidays less than or 2 months away marked with orange
         return 'orange';
     } else { //the rest is marked with red, signalling that it's far away
         return '#db5942';
