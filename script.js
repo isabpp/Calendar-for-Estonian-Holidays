@@ -1,7 +1,7 @@
 let holidayData = [];
 
 window.onload = function() {
-    fetchData(2024);
+    fetchData(2025);
 };
 
 async function  fetchData(year) {
@@ -15,7 +15,14 @@ async function  fetchData(year) {
         holidayData = await response.json();
         console.log(holidayData);
 
-        renderHolidays(holidayData);
+        const isGrouped = document.getElementById('check').checked; 
+
+        if (isGrouped) {
+            renderHolidaysMonthly(holidayData);
+        } else {
+            renderHolidays(holidayData);
+        }
+        
     }
     catch(error) {
         console.error("Couldn't fetch the holiday data: ", error);
@@ -77,6 +84,53 @@ function renderHolidays(data) {
     }
 }
 
+function renderHolidaysMonthly(data) {
+    const contentContainer = document.getElementById('content');
+    contentContainer.innerHTML = ''; //to clear previous content when selecting a year 
+
+    const currentDate = new Date();
+    let currentMonth = -1;
+
+    for (let i = 0; i < data.length; i++) {
+        const holidayContainer = document.createElement('div');
+        holidayContainer.className = 'holiday_container';
+        const innerContainer = document.createElement('div');
+        innerContainer.className = 'inner_container';
+        innerContainer.id = 'inner_container';
+        const capsule1 = document.createElement('div');
+        capsule1.className = 'capsule1';
+        capsule1.id = 'capsule1';
+        const capsule2 = document.createElement('div');
+        capsule2.className = 'capsule2';
+        
+        const date = new Date(data[i].date);
+        const month = date.getMonth();
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        if (month !== currentMonth) { //to group together holidays that fall under the same month
+            currentMonth = month;
+            const monthHeader = document.createElement('div');
+            monthHeader.className = 'month_header';
+            monthHeader.innerHTML = '<p>' + months[month] + '</p>';
+            holidayContainer.appendChild(monthHeader);
+        }
+
+        capsule1.innerHTML = '<b>' + days[date.getDay()] + '</b> <br> <p>' + months[date.getMonth()].slice(0, 3) + ' ' + date.getDate() + ', ' + date.getFullYear() + '</p>';
+        capsule2.innerHTML = '<b>' + data[i].localName + '</b> <br> <p>' + data[i].name + '</p>';
+
+        const outlineColor = holidayColorCoding(currentDate, date);
+        capsule1.style.outline = '2px solid ' + outlineColor;
+
+        innerContainer.appendChild(capsule1);
+        innerContainer.appendChild(capsule2);
+        holidayContainer.appendChild(innerContainer);
+        contentContainer.appendChild(holidayContainer);
+        console.log(data[i].localName);
+        console.log(capsule1.id);
+    }
+}
+
 function switchThemes() {
     var button = document.getElementById('switch');
     var body = document.body;
@@ -99,6 +153,16 @@ function switchThemes() {
         });
     }
 
+}
+
+function toggleGrouping() {
+    const isGrouped = document.getElementById('check').checked;
+
+    if (isGrouped) {
+        renderHolidaysMonthly(holidayData);
+    } else {
+        renderHolidays(holidayData);
+    }
 }
 
 function searchHoliday() {

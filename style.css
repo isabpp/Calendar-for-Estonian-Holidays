@@ -124,3 +124,8 @@ body {
     color: rgb(67, 22, 109);
     font-family: Verdana, Tahoma, sans-serif;
 }
+
+.check {
+    background-color: rgb(243, 231, 253);
+    filter: opacity(60%);
+}
