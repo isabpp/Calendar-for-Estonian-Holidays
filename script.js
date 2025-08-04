@@ -1,10 +1,34 @@
 let holidayData = [];
+const d = new Date();
+let currentYear = d.getFullYear();
 
 window.onload = function() {
-    fetchData(2025);
+    renderYearOptions();
+    fetchData(currentYear);
 };
 
-async function  fetchData(year) {
+function renderYearOptions() {
+    console.log(currentYear);
+    const dropDown = document.getElementById('dropdown');
+
+    const optionOne = document.createElement('option');
+    optionOne.value = currentYear;
+    optionOne.text = currentYear;
+
+    const optionTwo = document.createElement('option');
+    optionTwo.value = currentYear - 1;
+    optionTwo.text = currentYear - 1;
+
+    const optionThree = document.createElement('option');
+    optionThree.value = currentYear - 2;
+    optionThree.text = currentYear - 2;
+
+    dropDown.appendChild(optionOne);
+    dropDown.appendChild(optionTwo);
+    dropDown.appendChild(optionThree);
+}
+
+async function fetchData(year) {
     try {
         const response = await fetch('https://date.nager.at/api/v3/publicholidays/' + year + '/EE');
 

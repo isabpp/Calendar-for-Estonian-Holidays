@@ -11,11 +11,7 @@
         <div class="title-container"><h1>Estonian Holidays Calendar</h1></div>
         <div class="search-container">
             <input type="text" id="searchbar" class="searchbar" placeholder="Search by holiday name">
-            <select id="dropdown" class="dropdown" onchange="fetchData(this.value)">
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025" selected>2025</option>
-            </select>
+            <select id="dropdown" class="dropdown" onchange="fetchData(this.value)"></select>
             <input type="checkbox" id="check" class="check" onclick="toggleGrouping()">
             <label for="check">Group by month</label>
         </div>
